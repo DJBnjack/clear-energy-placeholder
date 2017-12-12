@@ -1,73 +1,40 @@
 /*
-	Magnetic by Pixelarity
+	Phantom by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* Banner */
+/* Tiles */
 
-	#banner header {
-		padding: 11em 4em 8em 4em ;
-		height: auto !important;
+	.tiles:after {
+		content: '';
+		display: block;
+		clear: both;
 	}
 
-	@media screen and (max-width: 1280px) {
+	.tiles article {
+		float: left;
+	}
 
-		#banner header {
-			padding: 9em 3em 6em 3em ;
+		.tiles article > a {
+			padding-top: 50%;
+			margin-top: -1.75em;
 		}
 
-	}
-
-/* Main */
-
-	#main .features .content:after {
-		content: '';
-		display: block;
-		clear: both;
-	}
-
-	#main .features .content > * {
-		float: left;
-	}
-
-	#main .spotlight:after {
-		content: '';
-		display: block;
-		clear: both;
-	}
-
-	#main .spotlight > * {
-		float: left;
-	}
+		body:not(.is-touch) .tiles article:hover > .image {
+			-moz-transform: none;
+			-webkit-transform: none;
+			-ms-transform: none;
+			transform: none;
+		}
 
 /* Footer */
 
-	#footer .inner:after {
-		content: '';
-		display: block;
-		clear: both;
-	}
-
-	#footer .inner > * {
+	#footer > .inner section {
 		float: left;
 	}
 
-/* Menu */
-
-	#menu {
-		background: rgba(97, 192, 149, 0.9);
-		text-align: center;
+	#footer > .inner .copyright {
+		clear: both;
+		padding-top: 4em;
 	}
-
-		#menu:after {
-			content: '';
-			display: inline-block;
-			height: 100%;
-			vertical-align: middle;
-		}
-
-		#menu .inner {
-			display: inline-block;
-			vertical-align: middle;
-		}

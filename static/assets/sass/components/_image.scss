@@ -1,9 +1,5 @@
-@import '../libs/vars';
-@import '../libs/functions';
-@import '../libs/mixins';
-
 ///
-/// Magnetic by Pixelarity
+/// Phantom by Pixelarity
 /// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
@@ -11,11 +7,13 @@
 /* Image */
 
 	.image {
+		border-radius: _size(border-radius);
 		border: 0;
 		display: inline-block;
 		position: relative;
 
 		img {
+			border-radius: _size(border-radius);
 			display: block;
 		}
 
@@ -57,6 +55,10 @@
 
 			img {
 				width: 100%;
+			}
+
+			@include breakpoint(small) {
+				margin: 0 0 _size(element-margin) 0;
 			}
 		}
 	}
