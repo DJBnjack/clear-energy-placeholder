@@ -1,15 +1,15 @@
 /*
-	Phantom by Pixelarity
+	Magnetic by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
 
-/* Form */
+/* Basic */
 
-	form .field {
-		float: none !important;
-		width: 100% !important;
-		padding-left: 0 !important;
+	body {
+		background-image: url("../../images/bg.jpg");
+		background-size: cover;
+		-ms-behavior: url("assets/js/ie/backgroundsize.min.htc");
 	}
 
 /* Button */
@@ -19,55 +19,66 @@
 	input[type="button"],
 	button,
 	.button {
-		border: solid 2px #585858 !important;
+		border: solid 1px #ffffff !important;
 	}
-
-		input[type="submit"]:hover,
-		input[type="reset"]:hover,
-		input[type="button"]:hover,
-		button:hover,
-		.button:hover {
-			border-color: #f2849e !important;
-		}
 
 		input[type="submit"].special,
 		input[type="reset"].special,
 		input[type="button"].special,
 		button.special,
 		.button.special {
-			border: none !important;
+			border: 0 !important;
 		}
 
-/* Tiles */
+/* Form */
 
-	.tiles article > .image:before, .tiles article > .image:after {
-		display: none;
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	input[type="tel"],
+	select {
+		line-height: 3.25em;
 	}
 
-/* Header */
+/* Banner */
 
-	#header .logo .symbol {
-		display: none;
+	#banner {
+		-ms-behavior: url("assets/js/ie/backgroundsize.min.htc");
 	}
 
-	#header nav ul li a[href="#menu"] {
-		text-indent: 0;
-		width: auto;
-		font-size: 0.8em;
-	}
-
-		#header nav ul li a[href="#menu"]:before, #header nav ul li a[href="#menu"]:after {
+		#banner:before {
 			display: none;
 		}
 
+		#banner footer {
+			border-top: solid 1px #ffffff;
+		}
+
+			#banner footer .actions {
+				margin-bottom: 0;
+			}
+
 /* Footer */
 
-	#footer > .inner section {
-		width: 50%;
-		margin-left: 3em;
+	#footer {
+		background: #32383f;
 	}
 
-		#footer > .inner section:first-child {
-			margin-left: 0;
-			width: 40%;
+/* Menu */
+
+	#menu {
+		background: #61c095;
+	}
+
+		#menu:before {
+			content: '\00d7';
+			cursor: pointer;
+			font-size: 3em;
+			width: 2em;
+			height: 2em;
+			line-height: 2em;
+		}
+
+		#menu .inner {
+			background: #32383f;
 		}

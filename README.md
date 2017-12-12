@@ -1,2 +1,2 @@
-# mandaten-site
-Placeholder site for mandaten.nl
+# clear-energy-placeholder
+Placeholder site for clear-energy.nl

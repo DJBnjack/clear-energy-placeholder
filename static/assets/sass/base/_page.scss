@@ -1,5 +1,9 @@
+@import '../libs/vars';
+@import '../libs/functions';
+@import '../libs/mixins';
+
 ///
-/// Phantom by Pixelarity
+/// Magnetic by Pixelarity
 /// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
@@ -24,7 +28,12 @@
 		}
 
 	body {
-		background: _palette(bg);
+		background-color:		_palette(bg-alt);
+		background-image:		url('images/overlay.png'),	url('../../images/bg.jpg');
+		background-size:		100px 100px,				100% auto;
+		background-repeat:		repeat,						no-repeat;
+		background-attachment:	scroll,						scroll;
+		background-position:	top left,					center 0px;
 
 		// Prevents animation/transition "flicker" on page load.
 		// Automatically added/removed by js/main.js.
@@ -35,4 +44,11 @@
 				}
 			}
 
+		@include breakpoint(medium) {
+			background-size:	100px 100px,				200% auto;
+		}
+
+		@include breakpoint(small) {
+			background-image:	none;
+		}
 	}

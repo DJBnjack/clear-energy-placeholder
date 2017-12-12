@@ -1,5 +1,5 @@
 /*
-	Phantom by Pixelarity
+	Magnetic by Pixelarity
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
@@ -13,6 +13,81 @@
 		small:	'(max-width: 736px)',
 		xsmall:	'(max-width: 480px)'
 	});
+
+	/**
+	 * Applies parallax scrolling to an element's background image.
+	 * @return {jQuery} jQuery object.
+	 */
+	$.fn._parallax = (skel.vars.browser == 'ie' || skel.vars.mobile) ? function() { return $(this) } : function(intensity) {
+
+		var	$window = $(window),
+			$this = $(this);
+
+		if (this.length == 0 || intensity === 0)
+			return $this;
+
+		if (this.length > 1) {
+
+			for (var i=0; i < this.length; i++)
+				$(this[i])._parallax(intensity);
+
+			return $this;
+
+		}
+
+		if (!intensity)
+			intensity = 0.25;
+
+		$this.each(function() {
+
+			var $t = $(this),
+				on, off;
+
+			on = function() {
+
+				$t.css('background-position', 'center 100%, center 100%, center 0px');
+
+				$window
+					.on('scroll._parallax', function() {
+
+						var pos = parseInt($window.scrollTop()) - parseInt($t.position().top);
+
+						$t.css('background-position', 'center ' + (pos * (-1 * intensity)) + 'px');
+
+					});
+
+			};
+
+			off = function() {
+
+				$t
+					.css('background-position', '');
+
+				$window
+					.off('scroll._parallax');
+
+			};
+
+			skel.on('change', function() {
+
+				if (skel.breakpoint('medium').active)
+					(off)();
+				else
+					(on)();
+
+			});
+
+		});
+
+		$window
+			.off('load._parallax resize._parallax')
+			.on('load._parallax resize._parallax', function() {
+				$window.trigger('scroll');
+			});
+
+		return $(this);
+
+	};
 
 	$(function() {
 
@@ -28,71 +103,8 @@
 				}, 100);
 			});
 
-		// Touch?
-			if (skel.vars.mobile)
-				$body.addClass('is-touch');
-
-		// Forms.
-			var $form = $('form');
-
-			// Auto-resizing textareas.
-				$form.find('textarea').each(function() {
-
-					var $this = $(this),
-						$wrapper = $('<div class="textarea-wrapper"></div>'),
-						$submits = $this.find('input[type="submit"]');
-
-					$this
-						.wrap($wrapper)
-						.attr('rows', 1)
-						.css('overflow', 'hidden')
-						.css('resize', 'none')
-						.on('keydown', function(event) {
-
-							if (event.keyCode == 13
-							&&	event.ctrlKey) {
-
-								event.preventDefault();
-								event.stopPropagation();
-
-								$(this).blur();
-
-							}
-
-						})
-						.on('blur focus', function() {
-							$this.val($.trim($this.val()));
-						})
-						.on('input blur focus --init', function() {
-
-							$wrapper
-								.css('height', $this.height());
-
-							$this
-								.css('height', 'auto')
-								.css('height', $this.prop('scrollHeight') + 'px');
-
-						})
-						.on('keyup', function(event) {
-
-							if (event.keyCode == 9)
-								$this
-									.select();
-
-						})
-						.triggerHandler('--init');
-
-					// Fix.
-						if (skel.vars.browser == 'ie'
-						||	skel.vars.mobile)
-							$this
-								.css('max-height', '10em')
-								.css('overflow-y', 'auto');
-
-				});
-
-			// Fix: Placeholder polyfill.
-				$form.placeholder();
+		// Fix: Placeholder polyfill.
+			$('form').placeholder();
 
 		// Prioritize "important" elements on medium.
 			skel.on('+medium -medium', function() {
@@ -102,10 +114,11 @@
 				);
 			});
 
+		// Body.
+			$body._parallax(-0.7);
+
 		// Menu.
 			var $menu = $('#menu');
-
-			$menu.wrapInner('<div class="inner"></div>');
 
 			$menu._locked = false;
 
@@ -148,28 +161,33 @@
 			$menu
 				.appendTo($body)
 				.on('click', function(event) {
-					event.stopPropagation();
-				})
-				.on('click', 'a', function(event) {
 
-					var href = $(this).attr('href');
-
-					event.preventDefault();
 					event.stopPropagation();
 
 					// Hide.
 						$menu._hide();
 
-					// Redirect.
-						if (href == '#menu')
-							return;
-
-						window.setTimeout(function() {
-							window.location.href = href;
-						}, 350);
-
 				})
-				.append('<a class="close" href="#menu">Close</a>');
+				.find('.inner')
+					.on('click', function(event) {
+						event.stopPropagation();
+					})
+					.on('click', 'a', function(event) {
+
+						var href = $(this).attr('href');
+
+						event.preventDefault();
+						event.stopPropagation();
+
+						// Hide.
+							$menu._hide();
+
+						// Redirect.
+							window.setTimeout(function() {
+								window.location.href = href;
+							}, 350);
+
+					});
 
 			$body
 				.on('click', 'a[href="#menu"]', function(event) {
@@ -179,12 +197,6 @@
 
 					// Toggle.
 						$menu._toggle();
-
-				})
-				.on('click', function(event) {
-
-					// Hide.
-						$menu._hide();
 
 				})
 				.on('keydown', function(event) {

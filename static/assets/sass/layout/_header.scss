@@ -1,132 +1,127 @@
+@import '../libs/vars';
+@import '../libs/functions';
+@import '../libs/mixins';
+
 ///
-/// Phantom by Pixelarity
+/// Magnetic by Pixelarity
 /// pixelarity.com | hello@pixelarity.com
 /// License: pixelarity.com/license
 ///
 
 /* Header */
 
+	body {
+		padding-top: 3.25em;
+	}
+
 	#header {
-		@include padding(5em, 0, (3em, 0, -5em, 0));
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 3.25em;
+		background: _palette(fg-bold);
+		color: _palette(bg);
+		line-height: 3.25em;
+		z-index: _misc(z-index-base);
 
-		.logo {
-			display: block;
-			border-bottom: 0;
+		h1 {
+			position: absolute;
+			top: 1;
+			left: 1.5em;
+			height: inherit;
 			color: inherit;
-			font-weight: _font(weight-bold);
-			letter-spacing: _font(letter-spacing);
-			margin: 0 0 (_size(element-margin) * 1.25) 0;
-			text-decoration: none;
-			text-transform: uppercase;
-			display: inline-block;
+			font-size: 0.9em;
+			line-height: inherit;
+			margin: 0;
 
-			> * {
-				display: inline-block;
-				vertical-align: middle;
-			}
+			a {
+				display: block;
+				height: inherit;
+				line-height: inherit;
 
-			.symbol {
-				margin-right: 0.65em;
-
-				img {
-					display: block;
-					width: 2em;
-					height: 2em;
+				&:hover {
+					color: inherit !important;
 				}
 			}
 		}
 
 		nav {
-			position: fixed;
-			right: 2em;
-			top: 2em;
-			z-index: _misc(z-index-base);
+			position: absolute;
+			top: 0;
+			right: 0.5em;
 
-			ul {
-				@include vendor('display', 'flex');
-				@include vendor('align-items', 'center');
-				list-style: none;
-				margin: 0;
-				padding: 0;
+			a {
+				@include icon;
+				display: inline-block;
+				height: inherit;
+				line-height: inherit;
+				border: 0;
+				color: inherit;
+				font-size: 0.9em;
+				font-weight: _font(weight-bold);
+				letter-spacing: _size(letter-spacing);
+				padding: 0 1em;
+				text-transform: uppercase;
 
-				li {
-					display: block;
-					padding: 0;
+				&:before {
+					margin-right: 0.5em;
+					opacity: 0.25;
+				}
 
-					a {
-						display: block;
-						position: relative;
-						height: 3em;
-						line-height: 3em;
-						padding: 0 1.5em;
-						background-color: transparentize(_palette(bg), 0.5);
-						border-radius: _size(border-radius);
-						border: 0;
-						font-size: 0.8em;
-						font-weight: _font(weight-bold);
-						letter-spacing: _font(letter-spacing);
-						text-transform: uppercase;
+				&[href="#menu"] {
+					-webkit-tap-highlight-color: rgba(0,0,0,0);
+
+					&:before {
+						content: '\f0c9';
 					}
+				}
 
-					a[href="#menu"] {
-						-webkit-tap-highlight-color: transparent;
-						width: 4em;
-						text-indent: 4em;
-						font-size: 1em;
-						overflow: hidden;
-						padding: 0;
-						white-space: nowrap;
-
-						&:before, &:after {
-							@include vendor('transition', 'opacity #{_duration(transition)} ease');
-							content: '';
-							display: block;
-							position: absolute;
-							top: 0;
-							left: 0;
-							width: 100%;
-							height: 100%;
-							background-position: center;
-							background-repeat: no-repeat;
-							background-size: 2em 2em;
-						}
-
-						&:before {
-							background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><style>line { stroke-width: 8px; stroke: #{_palette(accent1)}; }</style><line x1="0" y1="25" x2="100" y2="25" /><line x1="0" y1="50" x2="100" y2="50" /><line x1="0" y1="75" x2="100" y2="75" /></svg>');
-							opacity: 0;
-						}
-
-						&:after {
-							background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><style>line { stroke-width: 8px; stroke: #{_palette(fg)}; }</style><line x1="0" y1="25" x2="100" y2="25" /><line x1="0" y1="50" x2="100" y2="50" /><line x1="0" y1="75" x2="100" y2="75" /></svg>');
-							opacity: 1;
-						}
-
-						&:hover {
-							&:before {
-								opacity: 1;
-							}
-
-							&:after {
-								opacity: 0;
-							}
-						}
-					}
+				&:hover {
+					color: inherit !important;
 				}
 			}
 		}
+	}
 
-		@include breakpoint(small) {
-			@include padding(3em, 0, (1em, 0, -3em, 0));
+	@include breakpoint(small) {
+		body {
+			padding-top: 2.5em;
 
-			nav {
-				right: 0.5em;
-				top: 0.5em;
+			#header {
+				height: 2.5em;
+				line-height: 2.65em;
 
-				ul {
-					li {
-						a[href="#menu"] {
-							&:before, &:after {
-								background-size: 1.5em 1.5em;
+				h1 {
+					left: 1em;
+					font-size: 0.8em;
+
+					span {
+						display: none;
+					}
+				}
+
+				nav {
+					right: 0;
+
+					a {
+						&[href="#menu"] {
+							width: 6em;
+							height: 4em;
+							text-indent: 6em;
+							overflow: hidden;
+							white-space: nowrap;
+
+							&:before {
+								display: block;
+								position: absolute;
+								top: 0;
+								right: 0;
+								width: 3em;
+								height: 2.5em;
+								margin: 0;
+								text-indent: 0;
+								text-align: center;
 							}
 						}
 					}

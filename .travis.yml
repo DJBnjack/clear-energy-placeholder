@@ -6,8 +6,8 @@ services:
 before_install:
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  - docker build -t sites.azurecr.io/mandaten-site .
+  - docker build -t sites.azurecr.io/site-energy .
   - docker login -u sites -p "$DOCKER_PASSWORD" sites.azurecr.io
 
 script:
-  - docker push sites.azurecr.io/mandaten-site
+  - docker push sites.azurecr.io/site-energy
